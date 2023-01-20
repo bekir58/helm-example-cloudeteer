@@ -1,4 +1,10 @@
 
+
+# Start minikube
+```
+minikube start
+```
+
 # helm erstellen
 ```
 helm create cloudeteer
