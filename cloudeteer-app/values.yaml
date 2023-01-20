@@ -1,0 +1,45 @@
+
+# app name festlegen
+appName: cloudeteer
+
+# namespace erstellen
+namespace: default
+
+# Persistenzspeicherung aktivieren/deaktivieren
+persistence:
+  enabled: true
+
+# Replicas 3x
+replicas: 3
+
+# Umgebungsvariablen
+env:
+  - name: MYSQL_ROOT_PASSWORD
+    value: "password"
+  - name: MYSQL_USER
+    value: "user"
+  - name: MYSQL_PASSWORD
+    value: "password"
+  - name: MYSQL_DATABASE
+    value: "database"
+
+# MySQL-Bitnami-Diagramm
+dependencies:
+  - name: mysql
+    version: "8.0.22"
+    repository: "https://charts.bitnami.com/bitnami"
+
+# Kubernetes-Service
+service:
+  type: NodePort
+  port: 80
+  protocol: TCP
+  ignoreDeletion: true
+  annotations:
+  "helm.sh/resource-policy": keep
+
+# Container-Image
+image:
+  name: gcr.io/google-samples/hello-app
+  tag: 2.0
+  #imagePullPolicy: Always
