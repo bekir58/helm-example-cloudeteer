@@ -1,14 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.appName }}
-  namespace: {{ .Values.namespace }}
+  name: {{ include "cloudeteer.fullname" . }}
   labels:
-    app: {{ .Values.appName }}
+    {{- include "cloudeteer.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
-  - port: {{ .Values.service.port }}
-    protocol: {{ .Values.service.protocol }}
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
   selector:
-    app: {{ .Values.appName }}
+    {{- include "cloudeteer.selectorLabels" . | nindent 4 }}
